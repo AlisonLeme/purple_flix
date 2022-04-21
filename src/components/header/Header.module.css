@@ -1,0 +1,14 @@
+.toolBar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.iconAccount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconTheme {
+    margin-right: 10px;
+}

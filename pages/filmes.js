@@ -1,12 +1,14 @@
 
 import TemplateDefault from '../src/templates/Default'
 
-const Home = () => {
+const filmes = () => {
   return (
     <TemplateDefault>
-      <h1>Home</h1>
+        <h1>
+            Página de filmes
+        </h1>
     </TemplateDefault>
   )
 }
 
-export default Home
+export default filmes
