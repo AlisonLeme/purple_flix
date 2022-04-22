@@ -1,0 +1,16 @@
+.card {
+    padding: 20px 10px;
+    border-radius: 30px;
+}
+
+.textField {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.btn {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 50px;
+}
