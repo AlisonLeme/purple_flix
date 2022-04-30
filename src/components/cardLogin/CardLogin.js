@@ -1,11 +1,17 @@
 import { useState } from 'react';
+import { Formik } from 'formik';
+import * as yup from 'yup'
+
 import {
     Card,
     CardActions,
     CardContent,
     Button,
     Typography,
-    TextField
+    FormControl,
+    Input,
+    FormHelperText,
+    InputLabel
 } from '@mui/material';
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -24,30 +30,71 @@ const CardLogin = ({ title }) => {
     const handleModalClose = () => {
         setOpen(false);
     }
+
+    const validationSchema = yup.object().shape({
+        email: yup.string()
+            .required('Campo obrigatório')
+            .email('Digite um e-mail válido')
+    })
     
     return (
-        <>
-            <Card sx={{ maxWidth: 345 }} className={styles.card}>
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    { title }
-                </Typography>
-                <TextField id="standard-basic" label="Digite o seu e-mail" variant="standard" className={styles.textField}/>
-            </CardContent>
-            <CardActions>
-                <Button 
-                    variant='contained' 
-                    size="large" 
-                    className={styles.btn} 
-                    endIcon={<ArrowForwardIcon />}
-                    disabled={false}
-                    onClick={handleModalOpen}
-                >Continuar
-                </Button>
-            </CardActions>
-            </Card>
-            <ModalLogin open={open} handleModalClose={handleModalClose}/>
-        </>
+        <Formik
+            initialValues={{
+                email: ''
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+                console.log('enviado', values)
+                handleModalOpen()
+            }}
+        >
+            {
+                ({
+                    touched,
+                    values,
+                    errors,
+                    handleChange,
+                    handleSubmit,
+                }) => {
+
+                    return (
+                        <form onSubmit={handleSubmit}>
+                            <Card sx={{ maxWidth: 345 }} className={styles.card}>
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        { title }
+                                    </Typography>
+                                    <FormControl fullWidth className={styles.formEmail} error={errors.email}>
+                                        <InputLabel>Email</InputLabel>
+                                        <Input 
+                                            name="email"
+                                            value={values.email}
+                                            onChange={handleChange}
+                                        />
+                                        <FormHelperText>
+                                            { errors.email }
+                                        </FormHelperText>
+                                    </FormControl>
+
+                                </CardContent>
+                                <CardActions>
+                                    <Button 
+                                        type='submit'
+                                        variant='contained' 
+                                        size="large" 
+                                        className={styles.btn} 
+                                        endIcon={<ArrowForwardIcon />}
+                                        disabled={ values.email == '' || errors.email ? true : false }
+                                    >Continuar
+                                    </Button>
+                                </CardActions>
+                            </Card>
+                            <ModalLogin open={open} handleModalClose={handleModalClose}/>
+                        </form>
+                    )
+                }
+            }
+        </Formik>
     );
 }
 
