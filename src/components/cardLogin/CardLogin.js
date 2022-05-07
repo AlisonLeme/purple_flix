@@ -16,7 +16,7 @@ import {
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-import ModalLogin from '../modalLogin/ModalLogin';
+import ModalCadastro from '../modalCadastro/ModalCadastro';
 
 import styles from './Card.module.css'
 
@@ -89,7 +89,7 @@ const CardLogin = ({ title }) => {
                                     </Button>
                                 </CardActions>
                             </Card>
-                            <ModalLogin open={open} handleModalClose={handleModalClose}/>
+                            <ModalCadastro open={open} handleModalClose={handleModalClose} email={values.email}/>
                         </form>
                     )
                 }

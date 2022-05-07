@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+import axios from 'axios';
 import { Formik } from 'formik';
 import * as yup from 'yup'
 
@@ -5,29 +7,58 @@ import {
     Button,
     Typography,
     FormControl,
-    Input,
     FormHelperText,
-    InputLabel
+    InputLabel,
+    Box,
+    OutlinedInput
 } from '@mui/material';
 
-const FormCadastro = () => {
+import styles from './FormCadastro.module.css'
+
+const FormCadastro = ({ email }) => {
+    const router = useRouter()
 
     const validationSchema = yup.object().shape({
+        name: yup.string()
+            .required('Campo obrigatório'),
+
         email: yup.string()
             .required('Campo obrigatório')
-            .email('Digite um e-mail válido')
+            .email('Digite um e-mail válido'),
+
+        userName: yup.string()
+            .required('Campo obrigatório')
+            .min(4, "Seu nome de usuário deve conter no mínimo 4 caracteres")
+            .max(15, "Seu nome de usuário deve conter no máximo 15 caracteres"),
+
+        password: yup.string()
+            .required('Campo obrigatório')
+            .min(8, "Senha muito fraca"),
+
+        confPassword: yup.string()
+            .required('Campo obrigatório')
+            .oneOf([yup.ref('password'), null], "As senhas não conferem")
     })
+
+    const hanldeFormSubmit = async (values) => {
+        const response = await axios.post('/api/users', values);
+
+        if (response.data.success) {
+            router.push('/user/dashboard')
+        }
+    }
 
     return (
         <Formik
             initialValues={{
-                email: ''
+                name: '',
+                email: `${email}`,
+                userName: '',
+                password: '',
+                confPassword: ''
             }}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
-                console.log('enviado', values)
-                handleModalOpen()
-            }}
+            onSubmit={hanldeFormSubmit}
         >
         {
             ({
@@ -40,29 +71,91 @@ const FormCadastro = () => {
 
                 return (
                     <form onSubmit={handleSubmit}>
-                        <Typography gutterBottom variant="h5" component="div">
-                            Faça seu cadastro
-                        </Typography>
-                        <FormControl fullWidth error={errors.email}>
-                            <InputLabel>Email</InputLabel>
-                            <Input 
-                                name="email"
-                                value={values.email}
-                                onChange={handleChange}
-                            />
-                            <FormHelperText>
-                                { errors.email }
-                            </FormHelperText>
-                        </FormControl>
+                        <Box className={styles.boxForm}>
+                            <Typography gutterBottom variant="h3" component="h3" align='center'>
+                                <strong>Faça seu cadastro</strong>
+                            </Typography>
 
-                        <Button 
-                            type='submit'
-                            variant='contained' 
-                            size="large" 
-                            endIcon={''}
-                            disabled={ values.email == '' || errors.email ? true : false }
-                        >Continuar
-                        </Button>
+                            <Typography gutterBottom variant="body1" component="body1" align='center' className={styles.msgSpan}>
+                                Acesse a plataforma para poder assistir e incluir conteúdos
+                            </Typography>
+
+                            <FormControl className={styles.formControlCadastro} error={errors.name}>
+                                <InputLabel>Nome</InputLabel>
+                                <OutlinedInput 
+                                    name="name"
+                                    value={values.name}
+                                    onChange={handleChange}
+                                    label="name"
+                                />
+                                <FormHelperText>
+                                    { errors.email }
+                                </FormHelperText>
+                            </FormControl>
+
+                            <FormControl className={styles.formControlCadastro} error={errors.email}>
+                                <InputLabel>Email</InputLabel>
+                                <OutlinedInput 
+                                    name="email"
+                                    value={values.email}
+                                    onChange={handleChange}
+                                    label="Email"
+                                />
+                                <FormHelperText>
+                                    { errors.email }
+                                </FormHelperText>
+                            </FormControl>
+
+                            <FormControl className={styles.formControlCadastro} error={errors.userName}>
+                                <InputLabel>Usuário</InputLabel>
+                                <OutlinedInput
+                                    name="userName"
+                                    value={values.userName}
+                                    onChange={handleChange}
+                                    label="Usuário"
+                                />
+                                <FormHelperText>
+                                    { errors.userName }
+                                </FormHelperText>
+                            </FormControl>
+
+                            <FormControl className={styles.formControlCadastro} error={errors.password}>
+                                <InputLabel>Senha</InputLabel>
+                                <OutlinedInput
+                                    name="password"
+                                    value={values.password}
+                                    onChange={handleChange}
+                                    type="password"
+                                    label="Senha"
+                                />
+                                <FormHelperText>
+                                    { errors.password }
+                                </FormHelperText>
+                            </FormControl>
+                            
+                            <FormControl className={styles.formControlCadastro} error={errors.confPassword}>
+                                <InputLabel>Confirmar senha</InputLabel>
+                                <OutlinedInput
+                                    name="confPassword"
+                                    value={values.confPassword}
+                                    onChange={handleChange}
+                                    type="password"
+                                    label="Confirmar senha"
+                                />
+                                <FormHelperText>
+                                    { errors.confPassword }
+                                </FormHelperText>
+                            </FormControl>
+
+                            <Button 
+                                type='submit'
+                                variant='contained' 
+                                size="large" 
+                                endIcon={''}
+                                className={styles.btnCadastrar}
+                            >Cadastrar
+                            </Button>
+                        </Box>
                     </form>
                 )
             }

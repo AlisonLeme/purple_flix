@@ -1,0 +1,19 @@
+.boxForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.formControlCadastro {
+    margin: 0 auto 60px auto;
+    width: 80%;
+}
+
+.msgSpan {
+    margin: 5px 0 60px 0;
+}
+
+.btnCadastrar {
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 50px;
+}
