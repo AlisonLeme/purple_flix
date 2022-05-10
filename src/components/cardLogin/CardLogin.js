@@ -44,7 +44,6 @@ const CardLogin = ({ title }) => {
             }}
             validationSchema={validationSchema}
             onSubmit={(values) => {
-                console.log('enviado', values)
                 handleModalOpen()
             }}
         >

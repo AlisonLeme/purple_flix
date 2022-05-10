@@ -20,16 +20,18 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    background-color: #c5b1d6;
+    background-color: #1F0626;
+    color: #c5b1d6;
+}
+
+.boxImg {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
 }
 
 .boxImg img {
-    margin-top: 40px;
-    width: 320px;
-}
-
-.card {
-    width: 50px;
+    width: 80%
 }
 
 .btnClose {
@@ -38,6 +40,7 @@
     right: 1%;
 }
 
+/* ANIMAÇÕES */
 @keyframes fadeIn {
     0% {
         transform: translateX(50%);
@@ -47,6 +50,13 @@
     }
     100% {
         transform: translateX(0%);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .gridInfo {
+        display: none;
     }
 }
 

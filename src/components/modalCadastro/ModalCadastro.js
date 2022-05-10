@@ -1,4 +1,3 @@
-import Image from 'next/image'
 
 import {
   Grid,
@@ -35,7 +34,7 @@ const ModalLogin = ({ open, handleModalClose, email }) => {
                 <strong>Filmes, séries e muito mais. Sem limites. Acesse a plataforma para ter mais vantagens</strong>
               </Typography>
               <Box className={styles.boxImg}>
-                <img src='https://source.unsplash.com/random' alt='filmes'></img>
+                <img src='/images/filmes.jpg' alt='filmes'></img>
               </Box>
             </Grid>
 
