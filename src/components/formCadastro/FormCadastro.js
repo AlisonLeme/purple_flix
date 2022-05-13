@@ -80,7 +80,7 @@ const FormCadastro = ({ email }) => {
                                 Acesse a plataforma para poder assistir e incluir conteúdos
                             </Typography>
 
-                            <FormControl className={styles.formControlCadastro} error={errors.name}>
+                            <FormControl className={styles.formControlCadastro} error={errors.name && touched.name}>
                                 <InputLabel>Nome</InputLabel>
                                 <OutlinedInput 
                                     name="name"
@@ -89,11 +89,11 @@ const FormCadastro = ({ email }) => {
                                     label="name"
                                 />
                                 <FormHelperText>
-                                    { errors.email }
+                                    { errors.name && touched.name ? errors.name : null }
                                 </FormHelperText>
                             </FormControl>
 
-                            <FormControl className={styles.formControlCadastro} error={errors.email}>
+                            <FormControl className={styles.formControlCadastro} error={errors.email && touched.email}>
                                 <InputLabel>Email</InputLabel>
                                 <OutlinedInput 
                                     name="email"
@@ -102,11 +102,11 @@ const FormCadastro = ({ email }) => {
                                     label="Email"
                                 />
                                 <FormHelperText>
-                                    { errors.email }
+                                    { errors.email && touched.email ? errors.email : null }
                                 </FormHelperText>
                             </FormControl>
 
-                            <FormControl className={styles.formControlCadastro} error={errors.userName}>
+                            <FormControl className={styles.formControlCadastro} error={errors.userName && touched.userName}>
                                 <InputLabel>Usuário</InputLabel>
                                 <OutlinedInput
                                     name="userName"
@@ -115,11 +115,11 @@ const FormCadastro = ({ email }) => {
                                     label="Usuário"
                                 />
                                 <FormHelperText>
-                                    { errors.userName }
+                                    { errors.userName && touched.userName ? errors.userName : null }
                                 </FormHelperText>
                             </FormControl>
 
-                            <FormControl className={styles.formControlCadastro} error={errors.password}>
+                            <FormControl className={styles.formControlCadastro} error={errors.password && touched.password}>
                                 <InputLabel>Senha</InputLabel>
                                 <OutlinedInput
                                     name="password"
@@ -129,11 +129,11 @@ const FormCadastro = ({ email }) => {
                                     label="Senha"
                                 />
                                 <FormHelperText>
-                                    { errors.password }
+                                    { errors.password && touched.password ? errors.password : null }
                                 </FormHelperText>
                             </FormControl>
                             
-                            <FormControl className={styles.formControlCadastro} error={errors.confPassword}>
+                            <FormControl className={styles.formControlCadastro} error={errors.confPassword && touched.confPassword}>
                                 <InputLabel>Confirmar senha</InputLabel>
                                 <OutlinedInput
                                     name="confPassword"
@@ -143,7 +143,7 @@ const FormCadastro = ({ email }) => {
                                     label="Confirmar senha"
                                 />
                                 <FormHelperText>
-                                    { errors.confPassword }
+                                    { errors.confPassword && touched.confPassword ? errors.confPassword : null }
                                 </FormHelperText>
                             </FormControl>
 
