@@ -1,0 +1,15 @@
+.boxFilmes {
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.boxBtn {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+}
+
+.boxFilmes {
+    font-weight: bold;
+    border-bottom: 1px solid #1F0626;
+}
