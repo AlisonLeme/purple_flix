@@ -1,0 +1,57 @@
+.title {
+    font-weight: bold;
+}
+
+.thumbsContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.thumbsMsg {
+    font-weight: bold;
+}
+
+.dropzone {
+    width: 200px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    margin: 0 15px 15px 0;
+    background-color: white;
+    border: 2px dashed #1F0626;
+    cursor: pointer;
+}
+
+.thumb {
+    position: relative;
+    width: 200px;
+    height: 150px;
+    margin: 0 15px 15px 0;
+    background-size: cover;
+    background-position: center center;
+}
+
+.mainImage {
+    background-color: #1F0626;
+    padding: 6px 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.mask {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+}
+
+.thumb:hover .mask {
+    display: flex;
+}

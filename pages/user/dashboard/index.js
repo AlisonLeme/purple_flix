@@ -21,9 +21,11 @@ const Dashboard = () => {
                 <Typography component="h1" variant="h2" align="center" className={styles.boxFilmes}>
                     Assista filmes
                 </Typography>
-                <Button variant="contained" color="primary" className={styles.boxBtn}>
-                    Publicar filme
-                </Button>
+                <Link href='/user/publish' passHref>
+                    <Button variant="contained" color="primary" className={styles.boxBtn}>
+                        Publicar filme
+                    </Button>
+                </Link>
             </Box>
 
             <Grid container spacing={3} className={styles.gridCard}>
