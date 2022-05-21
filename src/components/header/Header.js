@@ -1,26 +1,27 @@
-import { useState } from 'react';
-import Link from 'next/link'
+import { useState } from "react";
+import Link from "next/link";
+
+import { useSession, signOut } from "next-auth/react";
 
 import {
-  Button,
   AppBar,
   Box,
   Toolbar,
   Typography,
   IconButton,
   Menu,
-  MenuItem
-} from '@mui/material';
+  MenuItem,
+} from "@mui/material";
 
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
-import styles from './Header.module.css'
+import styles from "./Header.module.css";
 
 export default function MenuAppBar() {
-  const [auth, setAuth] = useState(false);
   const [anchorTheme, setAnchorTheme] = useState(null);
   const [anchorLogin, setAnchorLogin] = useState(null);
+  const { data: session } = useSession();
 
   const handleMenuTheme = (event) => {
     setAnchorTheme(event.currentTarget);
@@ -39,98 +40,87 @@ export default function MenuAppBar() {
   };
 
   const handleLogin = () => {
-    if(auth === true) {
-      setAuth(false)
-    } else {
-      setAuth(true)
-    }
+    signOut({
+      callbackUrl: "http://localhost:3000",
+    });
+  };
 
-    handleCloseLogin()
-  }
-
-  const handleTheme = () => {
-  }
+  const handleTheme = () => {};
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className={styles.toolBar}>
           <Link href="/" passHref>
-            <IconButton color='inherit'>
+            <IconButton color="inherit">
               <Typography variant="h6" component="div">
                 PurpleFlix
               </Typography>
             </IconButton>
           </Link>
-          {
-            auth === true
-              ?
-                <div className={styles.iconAccount}>
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenuLogin}
-                    color="inherit"
-                  >
-                    <AccountCircle fontSize="large"/>
-                  </IconButton>
-                  <Typography>
-                    Alison Leme
-                  </Typography>
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorLogin}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'left',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={Boolean(anchorLogin)}
-                    onClose={handleCloseLogin}
-                  >
-                    <MenuItem>Perfil</MenuItem>
-                    <MenuItem onClick={handleLogin}>Sair</MenuItem>
-                  </Menu>
-                </div>
-              :
-                <Button color="inherit" onClick={handleLogin}>Login</Button>
-          }
-           <div className={styles.iconTheme}>
+          {session ? (
+            <div className={styles.iconAccount}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={handleMenuTheme}
+                onClick={handleMenuLogin}
                 color="inherit"
               >
-                <DarkModeIcon fontSize="large"/>
+                <AccountCircle fontSize="large" />
               </IconButton>
+              <Typography>{session.user.name}</Typography>
               <Menu
                 id="menu-appbar"
-                anchorEl={anchorTheme}
+                anchorEl={anchorLogin}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
+                  vertical: "top",
+                  horizontal: "left",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
-                open={Boolean(anchorTheme)}
-                onClose={handleCloseTheme}
+                open={Boolean(anchorLogin)}
+                onClose={handleCloseLogin}
               >
-                <MenuItem onClick={handleTheme}>Claro</MenuItem>
-                <MenuItem onClick={handleTheme}>Escuro</MenuItem>
+                <MenuItem>Perfil</MenuItem>
+                <MenuItem onClick={handleLogin}>Sair</MenuItem>
               </Menu>
             </div>
+          ) : null}
+          <div className={styles.iconTheme}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenuTheme}
+              color="inherit"
+            >
+              <DarkModeIcon fontSize="large" />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorTheme}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorTheme)}
+              onClose={handleCloseTheme}
+            >
+              <MenuItem onClick={handleTheme}>Claro</MenuItem>
+              <MenuItem onClick={handleTheme}>Escuro</MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>

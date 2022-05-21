@@ -1,77 +1,80 @@
-import Link from 'next/link'
+import Link from "next/link";
+import { useSession } from "next-auth/react";
 
-import {
-    Container,
-    Button,
-    Grid,
-    Typography,
-    Box
-} from '@mui/material'
+import { Container, Button, Grid, Typography, Box } from "@mui/material";
 
-import TemplateDefault from '../../../src/templates/Default'
+import TemplateDefault from "../../../src/templates/Default";
 
-import CardMovie from '../../../src/components/cardMovie/CardMovie'
+import CardMovie from "../../../src/components/cardMovie/CardMovie";
 
-import styles from './dashboard.module.css'
+import styles from "./dashboard.module.css";
 
 const Dashboard = () => {
-    return (
-        <TemplateDefault>
-            <Box className={styles.boxFilmes}>
-                <Typography component="h1" variant="h2" align="center" className={styles.boxFilmes}>
-                    Assista filmes
-                </Typography>
-                <Link href='/user/publish' passHref>
-                    <Button variant="contained" color="primary" className={styles.boxBtn}>
-                        Publicar filme
-                    </Button>
-                </Link>
-            </Box>
+  const { data: session } = useSession();
 
-            <Grid container spacing={3} className={styles.gridCard}>
-                <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <CardMovie
-                        url={''}
-                        img={'https://source.unsplash.com/random'}
-                        title='titulo'
-                        nome='Alison'
-                        data='13/05/2022'
-                    />
-                </Grid>
+  console.log(session);
 
-                <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <CardMovie
-                        url={''}
-                        img={'https://source.unsplash.com/random'}
-                        title='titulo'
-                        nome='Alison'
-                        data='13/05/2022'
-                    />
-                </Grid>
+  return (
+    <TemplateDefault>
+      <Box className={styles.boxFilmes}>
+        <Typography
+          component="h1"
+          variant="h2"
+          align="center"
+          className={styles.boxFilmes}
+        >
+          Assista filmes
+        </Typography>
+        <Link href="/user/publish" passHref>
+          <Button variant="contained" color="primary" className={styles.boxBtn}>
+            Publicar filme
+          </Button>
+        </Link>
+      </Box>
 
-                <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <CardMovie
-                        url={''}
-                        img={'https://source.unsplash.com/random'}
-                        title='titulo'
-                        nome='Alison'
-                        data='13/05/2022'
-                    />
-                </Grid>
+      <Grid container spacing={3} className={styles.gridCard}>
+        <Grid item xs={12} md={6} lg={4} xl={3}>
+          <CardMovie
+            url={""}
+            img={"https://source.unsplash.com/random"}
+            title="titulo"
+            nome="Alison"
+            data="13/05/2022"
+          />
+        </Grid>
 
-                <Grid item xs={12} md={6} lg={4} xl={3}>
-                    <CardMovie
-                        url={''}
-                        img={'https://source.unsplash.com/random'}
-                        title='titulo'
-                        nome='Alison'
-                        data='13/05/2022'
-                    />
-                </Grid>
-            </Grid>
+        <Grid item xs={12} md={6} lg={4} xl={3}>
+          <CardMovie
+            url={""}
+            img={"https://source.unsplash.com/random"}
+            title="titulo"
+            nome="Alison"
+            data="13/05/2022"
+          />
+        </Grid>
 
-        </TemplateDefault>
-    )
-}
+        <Grid item xs={12} md={6} lg={4} xl={3}>
+          <CardMovie
+            url={""}
+            img={"https://source.unsplash.com/random"}
+            title="titulo"
+            nome="Alison"
+            data="13/05/2022"
+          />
+        </Grid>
 
-export default Dashboard
+        <Grid item xs={12} md={6} lg={4} xl={3}>
+          <CardMovie
+            url={""}
+            img={"https://source.unsplash.com/random"}
+            title="titulo"
+            nome="Alison"
+            data="13/05/2022"
+          />
+        </Grid>
+      </Grid>
+    </TemplateDefault>
+  );
+};
+
+export default Dashboard;

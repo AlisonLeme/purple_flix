@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 import Head from 'next/head';
 
+import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider } from '@emotion/react';
@@ -21,10 +22,12 @@ export default function MyApp(props) {
           <title>PurpleFlix</title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps}/>
-        </ThemeProvider>
+        <SessionProvider session={pageProps.session}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps}/>
+          </ThemeProvider>
+        </SessionProvider>
       </CacheProvider>
   );
 };
