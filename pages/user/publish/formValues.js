@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const initialValues = {
-  name: '',
+  movieName: '',
   url: '',
   genero: '',
   description: '',
@@ -10,7 +10,7 @@ const initialValues = {
 }
 
 const validationSchema = yup.object().shape({
-  name: yup.string()
+  movieName: yup.string()
     .min(6, 'Escreva um nome maior')
     .max(50, 'Nome muito grande')
     .required('Campo obrigatório'),
