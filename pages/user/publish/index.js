@@ -281,16 +281,24 @@ const Publish = ({ userId, name, email, userName }) => {
   );
 };
 
-export async function getServerSideProps({ req }) {
-  const { userId, user } = await getSession({ req });
+Publish.requireAuth = true;
 
-  return {
-    props: {
-      userId,
-      name: user.name,
-      email: user.email,
-    },
-  };
+export async function getServerSideProps({ req }) {
+  const user = await getSession({ req });
+
+  if (!user) {
+    return {
+      props: {},
+    };
+  } else {
+    return {
+      props: {
+        userId: user.userId,
+        name: user.user.name,
+        email: user.user.email,
+      },
+    };
+  }
 }
 
 export default Publish;

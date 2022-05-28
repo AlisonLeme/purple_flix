@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-import { Container, Button, Grid, Typography, Box } from "@mui/material";
+import { Button, Grid, Typography, Box } from "@mui/material";
 
 import TemplateDefault from "../../../src/templates/Default";
 
 import CardMovie from "../../../src/components/cardMovie/CardMovie";
+import dbConnect from "../../../src/utils/dbConnect";
+import MoviesModel from "../../../src/models/movies";
 
 import styles from "./dashboard.module.css";
 
-const Dashboard = () => {
+const Dashboard = ({ movies }) => {
   const { data: session } = useSession();
-
-  console.log(session);
 
   return (
     <TemplateDefault>
@@ -33,48 +33,40 @@ const Dashboard = () => {
       </Box>
 
       <Grid container spacing={3} className={styles.gridCard}>
-        <Grid item xs={12} md={6} lg={4} xl={3}>
-          <CardMovie
-            url={""}
-            img={"https://source.unsplash.com/random"}
-            title="titulo"
-            nome="Alison"
-            data="13/05/2022"
-          />
-        </Grid>
-
-        <Grid item xs={12} md={6} lg={4} xl={3}>
-          <CardMovie
-            url={""}
-            img={"https://source.unsplash.com/random"}
-            title="titulo"
-            nome="Alison"
-            data="13/05/2022"
-          />
-        </Grid>
-
-        <Grid item xs={12} md={6} lg={4} xl={3}>
-          <CardMovie
-            url={""}
-            img={"https://source.unsplash.com/random"}
-            title="titulo"
-            nome="Alison"
-            data="13/05/2022"
-          />
-        </Grid>
-
-        <Grid item xs={12} md={6} lg={4} xl={3}>
-          <CardMovie
-            url={""}
-            img={"https://source.unsplash.com/random"}
-            title="titulo"
-            nome="Alison"
-            data="13/05/2022"
-          />
-        </Grid>
+        {movies.map((movie) => {
+          return (
+            <Grid key={movie._id} item xs={12} md={6} lg={4} xl={3}>
+              <CardMovie
+                url={""}
+                img={`/uploads/${movie.files[0].name}`}
+                title={movie.movieName}
+                nome={movie.user.name}
+                data="13/05/2022"
+              />
+            </Grid>
+          );
+        })}
       </Grid>
     </TemplateDefault>
   );
 };
+
+Dashboard.requireAuth = true
+
+export async function getServerSideProps({ req }) {
+  await dbConnect();
+
+  const movies = await MoviesModel.aggregate([
+    {
+      $sample: { size: 20 },
+    },
+  ]);
+
+  return {
+    props: {
+      movies: JSON.parse(JSON.stringify(movies)),
+    },
+  };
+}
 
 export default Dashboard;

@@ -86,7 +86,9 @@ export default function MenuAppBar() {
                 open={Boolean(anchorLogin)}
                 onClose={handleCloseLogin}
               >
-                <MenuItem>Perfil</MenuItem>
+                <Link href="/user/dashboard" passHref>
+                  <MenuItem>Minha conta</MenuItem>
+                </Link>
                 <MenuItem onClick={handleLogin}>Sair</MenuItem>
               </Menu>
             </div>
