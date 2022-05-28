@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import slugify from "slugify";
 
 import { Button, Grid, Typography, Box } from "@mui/material";
 
@@ -13,6 +14,7 @@ import styles from "./dashboard.module.css";
 
 const Dashboard = ({ movies }) => {
   const { data: session } = useSession();
+  console.log(movies);
 
   return (
     <TemplateDefault>
@@ -34,10 +36,12 @@ const Dashboard = ({ movies }) => {
 
       <Grid container spacing={3} className={styles.gridCard}>
         {movies.map((movie) => {
+          const genero = slugify(movie.genero).toLowerCase();
+          const movieName = slugify(movie.movieName).toLowerCase();
           return (
             <Grid key={movie._id} item xs={12} md={6} lg={4} xl={3}>
               <CardMovie
-                url={""}
+                url={`/user/${genero}/${movieName}/${movie._id}`}
                 img={`/uploads/${movie.files[0].name}`}
                 title={movie.movieName}
                 nome={movie.user.name}
@@ -51,7 +55,7 @@ const Dashboard = ({ movies }) => {
   );
 };
 
-Dashboard.requireAuth = true
+Dashboard.requireAuth = true;
 
 export async function getServerSideProps({ req }) {
   await dbConnect();

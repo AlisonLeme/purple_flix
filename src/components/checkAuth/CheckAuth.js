@@ -3,18 +3,18 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const CheckAuth = ({ Component, pageProps }) => {
-  const { data: session, loading } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (loading) {
+    if (status) {
       return;
     }
 
     if (!session) {
       router.push("/");
     }
-  }, [session, loading]);
+  }, [session, status]);
 
   if (session) {
     return <Component {...pageProps} />;
