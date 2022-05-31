@@ -1,0 +1,26 @@
+.title {
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.box {
+    background-color: #1F0626;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+.card {
+    height: 100%;
+    background-color: #c5b1d6;
+
+}
+
+.titleDescription {
+    margin-top: 15px;
+
+}
+
+.description {
+    margin: 15px 0;
+}
