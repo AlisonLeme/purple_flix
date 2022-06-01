@@ -125,12 +125,15 @@ MyAccount.requireAuth = true;
 export async function getServerSideProps({ req }) {
   const session = await getSession({ req });
   await dbConnect();
+  let movies = [];
 
-  const movies = await MoviesModel.find({ "user.id": session.userId });
+  if (session) {
+    movies = await MoviesModel.find({ "user.id": session.userId });
+  }
 
   return {
     props: {
-      movies: JSON.parse(JSON.stringify(movies)), 
+      movies: JSON.parse(JSON.stringify(movies)),
     },
   };
 }

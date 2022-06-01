@@ -36,8 +36,7 @@ const FormLogin = ({ email }) => {
       if (error) {
         console.log("Erro!!!");
       } else {
-        console.log("Sucesso");
-        router.push("/user/dashboard");
+        router.push("/user/myAccount");
       }
     });
   };

@@ -7,7 +7,7 @@ const CheckAuth = ({ Component, pageProps }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (status) {
+    if (status === "loading") {
       return;
     }
 

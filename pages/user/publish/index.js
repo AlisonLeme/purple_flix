@@ -49,7 +49,7 @@ const Publish = ({ userId, name, email, userName }) => {
 
     axios
       .post("/api/movies/post", formData)
-      .then(router.push("/user/dashboard"))
+      .then(router.push("/user/myAccount"))
       .then(console.log("ERRO!"));
   };
 
