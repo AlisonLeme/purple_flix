@@ -11,6 +11,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Divider
 } from "@mui/material";
 
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -87,8 +88,12 @@ export default function MenuAppBar() {
                 onClose={handleCloseLogin}
               >
                 <Link href="/user/dashboard" passHref>
-                  <MenuItem>Minha conta</MenuItem>
+                  <MenuItem>Filmes</MenuItem>
                 </Link>
+                <Link href="/user/myAccount" passHref>
+                  <MenuItem>Meus filmes</MenuItem>
+                </Link>
+                <Divider />
                 <MenuItem onClick={handleLogin}>Sair</MenuItem>
               </Menu>
             </div>

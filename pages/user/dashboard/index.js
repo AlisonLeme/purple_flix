@@ -23,7 +23,7 @@ const Dashboard = ({ movies }) => {
           component="h1"
           variant="h2"
           align="center"
-          className={styles.boxFilmes}
+          className={styles.titleFilmes}
         >
           Assista filmes
         </Typography>
