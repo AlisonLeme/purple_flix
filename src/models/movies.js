@@ -19,7 +19,7 @@ const schema = new mongoose.Schema({
     type: String,
     required: [true, 'O campo "Gênero" é obrigatorio.'],
   },
-  description:{
+  description: {
     type: String,
     required: [true, 'O campo "Descrição" é obrigatorio.'],
   },
@@ -35,6 +35,10 @@ const schema = new mongoose.Schema({
   files: {
     type: [filesSchema],
     default: undefined,
+  },
+  updatedAt: {
+    type: Date,
+    required: [true, 'O campo "UpdateAt" é obrigatorio.'],
   },
 });
 

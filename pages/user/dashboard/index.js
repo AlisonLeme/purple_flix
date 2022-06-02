@@ -45,7 +45,9 @@ const Dashboard = ({ movies }) => {
                 img={`/uploads/${movie.files[0].name}`}
                 title={movie.movieName}
                 nome={movie.user.name}
-                data="13/05/2022"
+                data={movie.anoLancamento}
+                genero={movie.genero}
+                updatedAt={movie.updatedAt}
               />
             </Grid>
           );

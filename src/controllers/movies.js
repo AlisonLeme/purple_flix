@@ -74,6 +74,7 @@ const post = async (req, res) => {
         email,
       },
       files: filesToSave,
+      updatedAt: new Date(),
     });
 
     const register = await movie.save();

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 import {
   Card,
@@ -7,11 +9,24 @@ import {
   CardActionArea,
   Typography,
   CardActions,
+  Chip,
+  Box,
 } from "@mui/material";
 
 import styles from "./cardMovie.module.css";
 
-const CardMovie = ({ url, img, title, nome, data, actions }) => {
+dayjs.extend(relativeTime)
+
+const CardMovie = ({
+  url,
+  img,
+  title,
+  nome,
+  data,
+  actions,
+  genero,
+  updatedAt,
+}) => {
   return (
     <Card>
       <Link href={url} passHref>
@@ -27,11 +42,17 @@ const CardMovie = ({ url, img, title, nome, data, actions }) => {
               {title}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {nome}
+              Publicado por: <strong>{nome}</strong>
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {data}
+              Ano lançamento: <strong>{data}</strong>
             </Typography>
+            <Box className={styles.footerCard}>
+              <Typography variant="body2" color="text.secondary">
+                <i>{dayjs(updatedAt).fromNow()}</i>
+              </Typography>
+              <Chip label={genero} color="secondary" />
+            </Box>
           </CardContent>
         </CardActionArea>
       </Link>
