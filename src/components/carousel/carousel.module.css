@@ -1,0 +1,14 @@
+.box {
+    background-color: #1F0626;
+    box-shadow: 1px 1px 15px black;
+    padding: 20px;
+    border-radius: 10px
+}
+
+.card {
+    height: 100%;
+}
+
+.cardMedia {
+    padding-top: 56%;
+}

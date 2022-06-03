@@ -86,28 +86,34 @@ const MyAccount = ({ movies }) => {
           const genero = slugify(movie.genero).toLowerCase();
           const movieName = slugify(movie.movieName).toLowerCase();
           return (
-            <Grid key={movie._id} item xs={12} md={6} lg={4} xl={3}>
-              <CardMovie
-                url={`/user/${genero}/${movieName}/${movie._id}`}
-                img={`/uploads/${movie.files[0].name}`}
-                title={movie.movieName}
-                nome={movie.user.name}
-                data={movie.anoLancamento}
-                genero={movie.genero}
-                updatedAt={movie.updatedAt}
-                actions={
-                  <>
-                    <Button
-                      size="small"
-                      color="primary"
-                      onClick={() => handleClickRemove(movie._id)}
-                    >
-                      Remover
-                    </Button>
-                  </>
-                }
-              />
-            </Grid>
+            <Link
+              key={movie._id}
+              href={`/user/${genero}/${movieName}/${movie._id}`}
+              passHref
+            >
+              <Grid item xs={12} md={6} lg={4} xl={3}>
+                <CardMovie
+                  url={`/user/${genero}/${movieName}/${movie._id}`}
+                  img={`/uploads/${movie.files[0].name}`}
+                  title={movie.movieName}
+                  nome={movie.user.name}
+                  data={movie.anoLancamento}
+                  genero={movie.genero}
+                  updatedAt={movie.updatedAt}
+                  actions={
+                    <>
+                      <Button
+                        size="small"
+                        color="primary"
+                        onClick={() => handleClickRemove(movie._id)}
+                      >
+                        Remover
+                      </Button>
+                    </>
+                  }
+                />
+              </Grid>
+            </Link>
           );
         })}
       </Grid>
