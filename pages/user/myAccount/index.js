@@ -3,6 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import slugify from "slugify";
 import { getSession } from "next-auth/react";
+import Router, { useRouter } from "next/router";
 
 import { Button, Grid, Typography, Box } from "@mui/material";
 
@@ -16,6 +17,7 @@ import ModalConfirm from "../../../src/components/modalConfirm/ModalConfirm";
 import styles from "./myAccount.module.css";
 
 const MyAccount = ({ movies }) => {
+  const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
   const [movieId, setMovieId] = useState();
   const [removeMovies, setRemoveMovies] = useState([]);
@@ -86,34 +88,28 @@ const MyAccount = ({ movies }) => {
           const genero = slugify(movie.genero).toLowerCase();
           const movieName = slugify(movie.movieName).toLowerCase();
           return (
-            <Link
-              key={movie._id}
-              href={`/user/${genero}/${movieName}/${movie._id}`}
-              passHref
-            >
-              <Grid item xs={12} md={6} lg={4} xl={3}>
-                <CardMovie
-                  url={`/user/${genero}/${movieName}/${movie._id}`}
-                  img={`/uploads/${movie.files[0].name}`}
-                  title={movie.movieName}
-                  nome={movie.user.name}
-                  data={movie.anoLancamento}
-                  genero={movie.genero}
-                  updatedAt={movie.updatedAt}
-                  actions={
-                    <>
-                      <Button
-                        size="small"
-                        color="primary"
-                        onClick={() => handleClickRemove(movie._id)}
-                      >
-                        Remover
-                      </Button>
-                    </>
-                  }
-                />
-              </Grid>
-            </Link>
+            <Grid key={movie._id} item xs={12} md={6} lg={4} xl={3}>
+              <CardMovie
+                url={`/user/${genero}/${movieName}/${movie._id}`}
+                img={`/uploads/${movie.files[0].name}`}
+                title={movie.movieName}
+                nome={movie.user.name}
+                data={movie.anoLancamento}
+                genero={movie.genero}
+                updatedAt={movie.updatedAt}
+                actions={
+                  <>
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => handleClickRemove(movie._id)}
+                    >
+                      Remover
+                    </Button>
+                  </>
+                }
+              />
+            </Grid>
           );
         })}
       </Grid>
