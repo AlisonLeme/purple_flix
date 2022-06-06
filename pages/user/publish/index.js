@@ -21,11 +21,14 @@ import {
 import TemplateDefault from "../../../src/templates/Default";
 import FileUpload from "../../../src/components/fileUpload";
 import { initialValues, validationSchema } from "./formValues";
+import useSnackBar from "../../../src/contexts/SnackBar";
 
 import styles from "./publish.module.css";
 
-const Publish = ({ userId, name, email, userName }) => {
+const Publish = ({ userId, name, email }) => {
   const router = useRouter();
+
+  const { setSnackBar } = useSnackBar();
 
   const formValues = {
     ...initialValues,
@@ -49,8 +52,26 @@ const Publish = ({ userId, name, email, userName }) => {
 
     axios
       .post("/api/movies/post", formData)
-      .then(router.push("/user/myAccount"))
-      .then(console.log("ERRO!"));
+      .then(handleSuccess)
+      .catch(handleError);
+  };
+
+  const handleError = () => {
+    setSnackBar({
+      open: true,
+      severity: "error",
+      text: "Erro! Tente novamente",
+    });
+  };
+
+  const handleSuccess = () => {
+    setSnackBar({
+      open: true,
+      severity: "success",
+      text: "Filme públicado com sucesso!",
+    });
+
+    router.push("/user/myAccount");
   };
 
   return (
@@ -85,10 +106,17 @@ const Publish = ({ userId, name, email, userName }) => {
                   variant="h2"
                   align="center"
                   gutterBottom
+                  color={"primary"}
+                  className={styles.titleFilmes}
                 >
                   Publicar Filme
                 </Typography>
-                <Typography component="h5" variant="h5" align="center">
+                <Typography
+                  component="h5"
+                  variant="h5"
+                  align="center"
+                  color={"primary"}
+                >
                   Quanto mais detalhes do filme melhor
                 </Typography>
               </Container>

@@ -16,7 +16,6 @@ import MoviesModel from "../../../../src/models/movies";
 import styles from "./movie.module.css";
 
 const Movie = ({ movie }) => {
-  console.log(movie);
   const url = movie.url;
   const urlCorreta = url.replace("watch?v=", "embed/");
 
@@ -27,6 +26,7 @@ const Movie = ({ movie }) => {
         variant="h2"
         align="center"
         className={styles.title}
+        color="primary"
       >
         {` Filme de ${movie.genero} `}
       </Typography>
@@ -102,8 +102,8 @@ const Movie = ({ movie }) => {
                 className={styles.cardHeader}
               />
               <CardMedia
-                image="A"
-                title="Alison"
+                image={<Avatar>{movie.user.name[0]}</Avatar>}
+                title={movie.user.name}
                 className={styles.cardMedia}
               />
             </Card>

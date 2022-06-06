@@ -24,6 +24,7 @@ const Dashboard = ({ movies }) => {
           variant="h2"
           align="center"
           className={styles.titleFilmes}
+          color='primary'
         >
           Assista filmes
         </Typography>

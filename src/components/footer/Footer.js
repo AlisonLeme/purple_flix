@@ -15,7 +15,7 @@ const Footer = () => {
         <>
             <Box className={styles.orSeparator}></Box>
             <Container maxWidth="lg" component="footer" className={styles.container}>
-                <Typography variant="h5" align="center">
+                <Typography variant="h5" align="center" color={'primary'}>
                     Entre em contato: (15 99999-9999)
                 </Typography>
 
@@ -26,7 +26,7 @@ const Footer = () => {
                                 <Link href={''}>
                                     <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">
                                         <IconButton>
-                                            <Typography variant="subtitle1">
+                                            <Typography variant="subtitle1" color={'primary'}>
                                                 Youtube
                                             </Typography>
                                         </IconButton>
@@ -40,7 +40,7 @@ const Footer = () => {
                                 <Link href={''}>
                                     <a href="https://alisonletos.github.io/SiteAlisonLetos/" target="_blank" rel="noreferrer">
                                         <IconButton>
-                                            <Typography variant="subtitle1">
+                                            <Typography variant="subtitle1" color={'primary'}>
                                                 Ajuda
                                             </Typography>
                                         </IconButton>
@@ -54,7 +54,7 @@ const Footer = () => {
                                 <Link href={''}>
                                     <a href="https://alisonletos.github.io/SiteAlisonLetos/" target="_blank" rel="noreferrer">
                                         <IconButton>
-                                            <Typography variant="subtitle1">
+                                            <Typography variant="subtitle1" color={'primary'}>
                                                 Contatos
                                             </Typography>
                                         </IconButton>
@@ -68,7 +68,7 @@ const Footer = () => {
                                 <Link href={''}>
                                     <a href="https://alisonletos.github.io/SiteAlisonLetos/" target="_blank" rel="noreferrer">
                                         <IconButton>
-                                            <Typography variant="subtitle1">
+                                            <Typography variant="subtitle1" color={'primary'}>
                                                 Site do desenvolvedor
                                             </Typography>
                                         </IconButton>
@@ -79,7 +79,7 @@ const Footer = () => {
                     </Grid>
                 </Box>
 
-                <Typography variant="subtitle1" align="center">
+                <Typography variant="subtitle1" align="center" color={'primary'}>
                     &copy; Todos os direitos reservados 2022
                 </Typography>
             </Container>

@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import { Grid, Typography, Box } from "@mui/material/";
+import slugify from "slugify";
 
 import TemplateDefault from "../src/templates/Default";
 import CardLogin from "../src/components/cardLogin/CardLogin";
@@ -18,38 +19,52 @@ const Home = ({ movies }) => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={session ? 12 : 8}>
           <Typography
-            variant="h2"
+            variant="body1"
             component="h1"
             align="center"
             gutterBottom
             color="primary"
+            sx={{ fontWeight: "bold" }}
           >
-            {session ? (
-              <strong>Bem vindo(a) {session.user.name} !</strong>
-            ) : null}
+            {session ? `Bem vindo(a) ${session.user.name} !` : null}
           </Typography>
-          <Typography variant="h2" component="h1" align="center">
-            <strong>Filmes, séries e muito mais. Sem limites.</strong>
-          </Typography>
-          <Typography variant="h4" component="h4" align="center">
-            Assista onde quiser. Sem pagar nada!
-          </Typography>
+          <Box className={styles.boxTitle}>
+            <Typography
+              variant="h2"
+              component="h1"
+              textAlign={"center"}
+              className={styles.title}
+            >
+              Filmes, séries e muito mais. Sem limites.
+            </Typography>
+          </Box>
         </Grid>
         {session ? null : (
           <Grid item xs={12} md={4}>
-            <CardLogin title="Se increva para fazer parte do nosso time, e incluir conteúdo." />
+            <CardLogin title="Se inscreva para fazer parte do nosso time, e incluir conteúdo." />
           </Grid>
         )}
       </Grid>
       <Box className={styles.boxDestaques}>
-        <Typography variant="h3" component="h2" textAlign="center" gutterBottom>
-          <strong>Destaques</strong>
+        <Typography
+          variant="h3"
+          component="h2"
+          textAlign="center"
+          gutterBottom
+          color={"primary"}
+        >
+          Destaques
         </Typography>
         <Grid container spacing={3}>
           {movies.map((movie) => {
+            const genero = slugify(movie.genero).toLowerCase();
+            const movieName = slugify(movie.movieName).toLowerCase();
             return (
               <Grid key={movie._id} item xs={12} md={6} lg={4} xl={3}>
                 <CardMovie
+                  url={
+                    session ? `/user/${genero}/${movieName}/${movie._id}` : "#"
+                  }
                   img={`/uploads/${movie.files[0].name}`}
                   title={movie.movieName}
                   nome={movie.user.name}

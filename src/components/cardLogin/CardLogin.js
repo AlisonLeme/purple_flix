@@ -62,7 +62,7 @@ const CardLogin = ({ title }) => {
           <form onSubmit={handleSubmit}>
             <Card sx={{ maxWidth: 345 }} className={styles.card}>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" color={'primary'}>
                   {title}
                 </Typography>
                 <FormControl

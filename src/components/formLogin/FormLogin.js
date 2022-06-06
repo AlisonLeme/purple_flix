@@ -3,6 +3,8 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { signIn } from "next-auth/react";
 
+import useSnackBar from "../../contexts/SnackBar";
+
 import {
   Button,
   Typography,
@@ -17,6 +19,8 @@ import styles from "./formLogin.module.css";
 
 const FormLogin = ({ email }) => {
   const router = useRouter();
+
+  const { setSnackBar } = useSnackBar();
 
   const validationSchema = yup.object().shape({
     email: yup
@@ -34,11 +38,29 @@ const FormLogin = ({ email }) => {
       redirect: false,
     }).then(async ({ error }) => {
       if (error) {
-        console.log("Erro!!!");
+        handleError();
       } else {
-        router.push("/user/myAccount");
+        handleSuccess();
       }
     });
+  };
+
+  const handleError = () => {
+    setSnackBar({
+      open: true,
+      severity: "error",
+      text: "Email ou senha inválidos",
+    });
+  };
+
+  const handleSuccess = () => {
+    setSnackBar({
+      open: true,
+      severity: "success",
+      text: "Login realizado com sucesso!",
+    });
+
+    router.push("/user/myAccount");
   };
 
   return (
@@ -59,6 +81,7 @@ const FormLogin = ({ email }) => {
                 variant="h3"
                 component="h3"
                 align="center"
+                color={'primary'}
               >
                 <strong>Fazer Login</strong>
               </Typography>
@@ -69,6 +92,7 @@ const FormLogin = ({ email }) => {
                 component="body1"
                 align="center"
                 className={styles.msgSpan}
+                color='primary'
               >
                 Acesse a plataforma para poder assistir e incluir conteúdos
               </Typography>

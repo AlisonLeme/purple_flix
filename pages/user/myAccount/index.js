@@ -13,6 +13,7 @@ import CardMovie from "../../../src/components/cardMovie/CardMovie";
 import dbConnect from "../../../src/utils/dbConnect";
 import MoviesModel from "../../../src/models/movies";
 import ModalConfirm from "../../../src/components/modalConfirm/ModalConfirm";
+import useSnackBar from "../../../src/contexts/SnackBar";
 
 import styles from "./myAccount.module.css";
 
@@ -21,6 +22,7 @@ const MyAccount = ({ movies }) => {
   const [openModal, setOpenModal] = useState(false);
   const [movieId, setMovieId] = useState();
   const [removeMovies, setRemoveMovies] = useState([]);
+  const { setSnackBar } = useSnackBar();
 
   const handleClickRemove = (movieId) => {
     setMovieId(movieId);
@@ -43,11 +45,21 @@ const MyAccount = ({ movies }) => {
   };
 
   const handleSuccess = () => {
+    setSnackBar({
+      open: true,
+      severity: "success",
+      text: "Filme removido com sucesso!",
+    });
     handleClose();
     setRemoveMovies([...removeMovies, movieId]);
   };
 
   const handleError = () => {
+    setSnackBar({
+      open: true,
+      severity: "error",
+      text: "Erro! Tente novamente",
+    });
     handleClose();
   };
 
@@ -59,6 +71,7 @@ const MyAccount = ({ movies }) => {
           variant="h2"
           align="center"
           className={styles.titleFilmes}
+          color='primary'
         >
           Meus Filmes
         </Typography>

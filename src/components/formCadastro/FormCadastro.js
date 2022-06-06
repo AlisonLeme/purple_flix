@@ -4,6 +4,8 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { signIn } from "next-auth/react";
 
+import useSnackBar from "../../contexts/SnackBar";
+
 import {
   Button,
   Typography,
@@ -18,6 +20,8 @@ import styles from "./FormCadastro.module.css";
 
 const FormCadastro = ({ email }) => {
   const router = useRouter();
+
+  const { setSnackBar } = useSnackBar();
 
   const validationSchema = yup.object().shape({
     name: yup.string().required("Campo obrigatório"),
@@ -54,12 +58,30 @@ const FormCadastro = ({ email }) => {
         redirect: false,
       }).then(async ({ error }) => {
         if (error) {
-          console.log("Erro!!!");
+          handleError();
         } else {
-          router.push("/user/myAccount");
+          handleSuccess();
         }
       });
     }
+  };
+
+  const handleError = () => {
+    setSnackBar({
+      open: true,
+      severity: "error",
+      text: "Erro! Tente novamente",
+    });
+  };
+
+  const handleSuccess = () => {
+    setSnackBar({
+      open: true,
+      severity: "success",
+      text: "Cadastro realizado com sucesso!",
+    });
+
+    router.push("/user/myAccount");
   };
 
   return (

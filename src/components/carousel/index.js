@@ -5,6 +5,10 @@ import styles from "./carousel.module.css";
 
 const carrosselImages = [
   {
+    id: 1,
+    name: "1.jpg",
+  },
+  {
     id: 2,
     name: "2.png",
   },
@@ -15,6 +19,14 @@ const carrosselImages = [
   {
     id: 4,
     name: "4.jpg",
+  },
+  {
+    id: 5,
+    name: "5.jpg",
+  },
+  {
+    id: 6,
+    name: "6.jpg",
   },
 ];
 

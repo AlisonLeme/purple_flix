@@ -21,11 +21,15 @@ const ModalLogin = ({ open, handleModalClose, email, isSuccess }) => {
         <Box className={styles.box}>
           <Grid container spacing={2} className={styles.grid}>
             <Grid item xs={12} md={6} className={styles.gridInfo}>
-              <Typography variant="h3" component="h3" align="center">
-                <strong>
-                  Filmes, séries e muito mais. Sem limites. Acesse a plataforma
-                  para ter mais vantagens
-                </strong>
+              <Typography
+                variant="h3"
+                component="h3"
+                align="center"
+                color="secondary.light"
+                sx={{ fontWeight: "bold" }}
+              >
+                Filmes, séries e muito mais. Sem limites. Acesse a plataforma
+                para ter mais vantagens
               </Typography>
               <Box className={styles.boxImg}>
                 <img src="/images/filmes.jpg" alt="filmes"></img>

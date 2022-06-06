@@ -3,3 +3,19 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.card {
+    border: 2px solid #1F0626;
+    box-shadow: 0 0 5px #1F0626;
+    transition: 300ms;
+}
+
+.card:hover {
+    transform: scale(101%);
+}
+
+.titleCard {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
