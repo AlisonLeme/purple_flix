@@ -1,6 +1,5 @@
 import { Formik } from "formik";
 import axios from "axios";
-import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import {
@@ -15,30 +14,35 @@ import {
   Typography,
   MenuItem,
   Input,
-  CircularProgress,
 } from "@mui/material";
 
 import TemplateDefault from "../../../src/templates/Default";
 import FileUpload from "../../../src/components/fileUpload";
 import { initialValues, validationSchema } from "./formValues";
 import useSnackBar from "../../../src/contexts/SnackBar";
+import dbConnect from "../../../src/utils/dbConnect";
+import MoviesModel from "../../../src/models/movies";
 
-import styles from "./publish.module.css";
+import styles from "./edit.module.css";
 
-const Publish = ({ userId, name, email }) => {
+const Edit = ({ movie }) => {
   const router = useRouter();
+  console.log(movie);
 
   const { setSnackBar } = useSnackBar();
 
   const formValues = {
     ...initialValues,
-    userId,
-    name,
-    email,
+    movieName: movie.movieName,
+    url: movie.url,
+    genero: movie.genero,
+    description: movie.description,
+    anoLancamento: movie.anoLancamento,
+    files: movie.files,
   };
 
   const handleFormSubmit = (values) => {
-    console.log(values)
+    console.log(values);
     const formData = new FormData();
 
     for (let i in values) {
@@ -52,7 +56,7 @@ const Publish = ({ userId, name, email }) => {
     }
 
     axios
-      .post("/api/movies/post", formData)
+      .post(`/api/movies/edit?id=${movie._id}`, formData)
       .then(handleSuccess)
       .catch(handleError);
   };
@@ -69,7 +73,7 @@ const Publish = ({ userId, name, email }) => {
     setSnackBar({
       open: true,
       severity: "success",
-      text: "Filme públicado com sucesso!",
+      text: "Filme Editado com sucesso!",
     });
 
     router.push("/user/myAccount");
@@ -93,10 +97,6 @@ const Publish = ({ userId, name, email }) => {
         }) => {
           return (
             <form onSubmit={handleSubmit}>
-              <Input type="hidden" name={userId} value={values.userId} />
-              <Input type="hidden" name={name} value={values.name} />
-              <Input type="hidden" name={email} value={values.email} />
-
               <Container
                 component="section"
                 maxWidth="lg"
@@ -110,7 +110,7 @@ const Publish = ({ userId, name, email }) => {
                   color={"primary"}
                   className={styles.titleFilmes}
                 >
-                  Publicar Filme
+                  Editar Filme
                 </Typography>
                 <Typography
                   component="h5"
@@ -248,6 +248,7 @@ const Publish = ({ userId, name, email }) => {
                     <InputLabel>Escreva os detalhes do filme</InputLabel>
                     <OutlinedInput
                       name="description"
+                      value={values.description}
                       multiline
                       rows={6}
                       onChange={handleChange}
@@ -282,6 +283,7 @@ const Publish = ({ userId, name, email }) => {
                     <InputLabel>Ex: 1997</InputLabel>
                     <OutlinedInput
                       name="anoLancamento"
+                      value={values.anoLancamento}
                       onChange={handleChange}
                       variant="outlined"
                       label="Ex: 1997"
@@ -298,7 +300,7 @@ const Publish = ({ userId, name, email }) => {
               <Container maxWidth="md">
                 <Box textAlign="right">
                   <Button type="submit" variant="contained" color="primary">
-                    Publicar Filme
+                    Editar Filme
                   </Button>
                 </Box>
               </Container>
@@ -310,24 +312,20 @@ const Publish = ({ userId, name, email }) => {
   );
 };
 
-Publish.requireAuth = true;
+Edit.requireAuth = true;
 
-export async function getServerSideProps({ req }) {
-  const user = await getSession({ req });
+export async function getServerSideProps({ query }) {
+  const { id } = query;
 
-  if (!user) {
-    return {
-      props: {},
-    };
-  } else {
-    return {
-      props: {
-        userId: user.userId,
-        name: user.user.name,
-        email: user.user.email,
-      },
-    };
-  }
+  await dbConnect();
+
+  const movie = await MoviesModel.findOne({ _id: id });
+
+  return {
+    props: {
+      movie: JSON.parse(JSON.stringify(movie)),
+    },
+  };
 }
 
-export default Publish;
+export default Edit;

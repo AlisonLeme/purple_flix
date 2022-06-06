@@ -19,18 +19,34 @@ import styles from "./myAccount.module.css";
 
 const MyAccount = ({ movies }) => {
   const router = useRouter();
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalRemove, setOpenModalRemove] = useState({
+    open: false,
+    title: "Deseja realmente remover este filme ?",
+    content: "Ao confirmar a operação não será possivel voltar atrás",
+  });
+  const [openModalEdit, setOpenModalEdit] = useState({
+    open: false,
+    title: "Deseja realmente editar este filme ?",
+    content: "Ao confirmar você será redirecionado para página de editar",
+  });
   const [movieId, setMovieId] = useState();
   const [removeMovies, setRemoveMovies] = useState([]);
   const { setSnackBar } = useSnackBar();
+  console.log(openModalRemove);
 
   const handleClickRemove = (movieId) => {
     setMovieId(movieId);
-    setOpenModal(true);
+    setOpenModalRemove({ ...openModalRemove, open: true });
+  };
+
+  const handleClickEdit = (movieId) => {
+    setMovieId(movieId);
+    setOpenModalEdit({ ...openModalEdit, open: true });
   };
 
   const handleClose = () => {
-    setOpenModal(false);
+    setOpenModalRemove({ ...openModalRemove, open: false });
+    setOpenModalEdit({ ...openModalEdit, open: false });
   };
 
   const handleConfirmRemove = () => {
@@ -42,6 +58,10 @@ const MyAccount = ({ movies }) => {
       })
       .then(handleSuccess)
       .catch(handleError);
+  };
+
+  const handleConfirmEdit = () => {
+    router.push(`/user/edit/${movieId}`);
   };
 
   const handleSuccess = () => {
@@ -71,7 +91,7 @@ const MyAccount = ({ movies }) => {
           variant="h2"
           align="center"
           className={styles.titleFilmes}
-          color='primary'
+          color="primary"
         >
           Meus Filmes
         </Typography>
@@ -119,6 +139,13 @@ const MyAccount = ({ movies }) => {
                     >
                       Remover
                     </Button>
+                    <Button
+                      size="small"
+                      color="primary"
+                      onClick={() => handleClickEdit(movie._id)}
+                    >
+                      Editar
+                    </Button>
                   </>
                 }
               />
@@ -127,10 +154,17 @@ const MyAccount = ({ movies }) => {
         })}
       </Grid>
       <ModalConfirm
-        title="Deseja realmente remover este filme ?"
-        content="Ao confirmar a operação não será possivel voltar atrás"
+        title={openModalRemove.title}
+        content={openModalRemove.content}
         handleConfirm={handleConfirmRemove}
-        open={openModal}
+        open={openModalRemove.open}
+        handleClose={handleClose}
+      />
+      <ModalConfirm
+        title={openModalEdit.title}
+        content={openModalEdit.content}
+        handleConfirm={handleConfirmEdit}
+        open={openModalEdit.open}
         handleClose={handleClose}
       />
     </TemplateDefault>
